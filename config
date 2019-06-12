@@ -7,7 +7,7 @@ set $aux ISO_Level3_Shift
 set $mod Mod4
 
  input * xkb_layout "br"
- xwayland disable 
+ xwayland enable 
  output * bg /usr/share/backgrounds/minflat.jpg fill
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -346,7 +346,7 @@ assign [class="TerminalRoot"] 5:
 assign [class="Terminal"] 5:
 assign [class="Vte"] 5:
 
-assign [class="Easytag"] 6:
+assign [class="ffplay"] 6:
 assign [class="mpv"] 6:
 assign [class="Audacity"] 6:
 assign [class="Gimp"] 6:
