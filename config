@@ -1,93 +1,48 @@
 ####################################################################################################
-# 
-#
-#
+# Sway config file
+# By Diëggho Oliver (BR)
 
+########################################################################################################
+# Set Mod Key
 set $aux ISO_Level3_Shift
 set $mod Mod4
 
- input * xkb_layout "br"
- xwayland enable 
- output * bg /usr/share/backgrounds/minflat.jpg fill
+########################################################################################################
+# Sway settings
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
+input * xkb_layout "br"
+xwayland enable 
+output * bg /usr/share/backgrounds/minflat.jpg fill
 font pango:Sans 8
-
-# force floating for all new windows
-for_window [class="[.]*"] focus
-
-# maximum window size
-#floating_maximum_size 1363 x 729
 floating_maximum_size 1156 x 650
+floating_modifier $mod
+focus_follows_mouse no
 
-# Cycle through active workspaces
+########################################################################################################
+# Sway Key Bindings
+
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
-
 bindsym Shift+space floating toggle 
-
-for_window [window_role="pop-up"] floating enable
-
-# drag windows
-floating_modifier $mod
-
 bindsym control+semicolon floating toggle;border normal
 bindsym control+period floating toggle;border pixel 1
 
 bindsym --release button4 exec /home/void/.config/sway/sway-frame-actions
 bindsym --release button5 exec /home/void/.config/sway/sway-frame-actions
 
-# Wheel commands
-bindsym --whole-window $mod+button2 kill
-bindsym --whole-window $mod+Mod2+button2 kill
-
-
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-
-# Before i3 v4.8, we used to recommend this as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
-focus_follows_mouse no
-
-# thin borders
-#hide_edge_borders both
-
-# start a terminal
 bindsym $mod+Return exec terminal
-bindsym $aux+space exec terminal
 
-# kill focused window
 bindsym $mod+shift+q kill
 bindsym Mod1+F4 kill
 bindsym Shift+F12 kill
-bindsym ISO_Level3_Shift+k kill
 
-# start dmenu (a program launcher)
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+d exec --no-startup-id exe=`dmenu_run -b -nb '#2B2E37' -nf '#d8d8d8' -sb '#5294E2' -sf '#d8d8d8'` && eval "exec $exe"
 
-
-# move focused window
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
 bindsym $mod+Shift+ccedilla move right
 
-# alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
@@ -103,34 +58,24 @@ bindsym Control+Shift+s move down
 bindsym Control+Shift+w move up
 bindsym Control+Shift+d move right
 
-
 bindsym control+Shift+Left move left
 bindsym control+Shift+Down move down
 bindsym control+Shift+Up move up
 bindsym control+Shift+Right move right
 
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-
-
-# split in horizontal orientation
 bindsym $mod+h split h
 bindsym control+equal split h
 
-# split in vertical orientation
 bindsym $mod+v split v
 bindsym control+minus split v
 
-# enter fullscreen mode for the focused container
-#bindsym $mod+f fullscreen toggle
 bindsym F11 fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
@@ -139,22 +84,45 @@ bindsym control+bracketright layout stacking
 bindsym control+dead_acute layout tabbed
 bindsym control+bracketleft layout toggle split
 
-
-# toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-
-# change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 bindsym control+space focus mode_toggle
 
-# focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
-#bindsym $mod+d focus child
+####################################################################################################
+# App Key binding
 
-# switch to workspace
+bindsym control+mod1+t exec --no-startup-id smart-terminal
+bindsym control+mod1+f exec --no-startup-id rox
+bindsym control+ccedilla exec --no-startup-id leafpad
+bindsym control+KP_Divide exec --no-startup-id terminal
+bindsym control+Shift+F5 exec --no-startup-id notify-send -t 2000 "Reboot imminent" "You are about to reboot" && sleep 3 && systemctl reboot
+bindsym control+Shift+F4 exec --no-startup-id notify-send -t 2000 "Logout imminent" "You are about to logout" && sleep 3 && swaymsg exit
+bindsym control+Shift+F1 exec --no-startup-id notify-send -t 2000 "Suspend imminent" "You are about to suspend" && sleep 3 && slock systemctl suspend -i
+
+bindsym $mod+c exec --no-startup-id gsimplecal
+bindsym $mod+mod1+f exec firefox -run maximized
+bindsym $mod+mod1+t exec --no-startup-id /opt/Telegram/Telegram
+bindsym $mod+t exec --no-startup-id terminal
+bindsym $mod+f exec --no-startup-id rox  
+bindsym $mod+x exec --no-startup-id rofi -show run 
+bindsym $mod+z exec --no-startup-id rofi -show drun -location 1 -width 560 -columns 2 -show-icons
+
+bindsym Print exec --no-startup-id screenshot
+bindsym Shift+Escape exec --no-startup-id st -e sh -c htop
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+
+########################################################################################################
+# Switch to workspace
+
 bindsym $mod+1 workspace  1:
 bindsym $mod+2 workspace  2:
 bindsym $mod+3 workspace  3:
@@ -166,16 +134,8 @@ bindsym $mod+8 workspace  8:
 bindsym $mod+9 workspace  9:
 bindsym $mod+0 workspace  10:
 
-bindsym Mod2+control+KP_1 workspace  1:
-bindsym Mod2+control+KP_2 workspace  2:
-bindsym Mod2+control+KP_3 workspace  3:
-bindsym Mod2+control+KP_4 workspace  4:
-bindsym Mod2+control+KP_5 workspace  5:
-bindsym Mod2+control+KP_6 workspace  6:
-bindsym Mod2+control+KP_7 workspace  7:
-bindsym Mod2+control+KP_8 workspace  8:
-bindsym Mod2+control+KP_9 workspace  9:
-bindsym Mod2+control+KP_0 workspace  10:
+########################################################################################################
+# Switch to workspace
 
 bindsym control+KP_End  workspace 1:
 bindsym control+KP_Down workspace 2:
@@ -188,7 +148,9 @@ bindsym control+KP_Up workspace 8:
 bindsym control+KP_Prior workspace 9:
 bindsym control+KP_Insert workspace 10:
 
-# move focused container to workspace
+########################################################################################################
+# Move focused container to workspace
+
 bindsym control+Shift+KP_1 move container to workspace  1:
 bindsym control+Shift+KP_2 move container to workspace  2:
 bindsym control+Shift+KP_3 move container to workspace  3:
@@ -199,6 +161,9 @@ bindsym control+Shift+KP_7 move container to workspace  7:
 bindsym control+Shift+KP_8 move container to workspace  8:
 bindsym control+Shift+KP_9 move container to workspace  9:
 bindsym control+Shift+KP_0 move container to workspace  10:
+
+########################################################################################################
+# Move focused container to workspace
 
 bindsym Mod2+control+Shift+KP_End move container to workspace 1:
 bindsym Mod2+control+Shift+KP_Down move container to workspace 2:
@@ -211,6 +176,9 @@ bindsym Mod2+control+Shift+KP_Up move container to workspace 8:
 bindsym Mod2+control+Shift+KP_Prior move container to workspace 9:
 bindsym Mod2+control+Shift+KP_Insert move container to workspace 10:
 
+########################################################################################################
+# Move focused container to workspace
+
 bindsym $mod+Shift+1 move container to workspace  1:
 bindsym $mod+Shift+2 move container to workspace  2:
 bindsym $mod+Shift+3 move container to workspace  3:
@@ -222,33 +190,26 @@ bindsym $mod+Shift+8 move container to workspace  8:
 bindsym $mod+Shift+9 move container to workspace  9:
 bindsym $mod+Shift+0 move container to workspace  10:
 
+########################################################################################################
+# Reset
 
-# reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'swaymsg exit'"
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
+########################################################################################################
+# Resize
+
+mode "resize" {
         bindsym j resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
         bindsym ccedilla resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
+	
         bindsym Left resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -256,10 +217,8 @@ mode "resize" {
 bindsym $mod+r mode "resize" 
 
 
-# =====================================================================================================
-# Assign colors
-# =====================================================================================================
-
+########################################################################################################
+# Colors
 
 set $bg             #2F343F
 set $bd             #3F424D
@@ -286,8 +245,6 @@ client.focused_inactive $bd-inactive          $bg-inactive          $text-inacti
 
 ########################################################################################################
 #
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
 bar {
 	status_command conky
 	position top
@@ -312,17 +269,6 @@ bar {
     }
 
 }
-## Default colours
-                #background #2B2E37
-                #statusline #dddddd
-                #separator #666666
-
-                                   #border #bg     #font
-                #focused_workspace  #666666 #5294E2 #dddddd
-                #active_workspace   #353741 #444444 #ffffff
-                #inactive_workspace #3F424D #2F343F #999999
-                #urgent_workspace   #3F424D #900000 #ffffff
-                #binding_mode       #A20000 #900000 #ffffff
 
 ####################################################################################################
 # Workspace Assign
@@ -385,7 +331,7 @@ assign [class="SimpleScreenRecorder"] 10:
 assign [class="qt5ct"] 10:
 
 ####################################################################################################
-# Windows
+# Windows status
 
 for_window [class="qt5ct"] floating enable
 for_window [class="Systemadm"] floating enable
@@ -426,46 +372,14 @@ for_window [class="Oblogout"] fullscreen toggle
 for_window [class="Gnome-pie"] $float $border-0px
 for_window [class="Arandr"] floating enable
 for_window [class="Pale moon"] layout tabbed
-
-
-####################################################################################################
-
-bindsym Shift+F11 exec --no-startup-id /home/$USER/.i3/i3-actions/i3-go-to
-bindsym Shift+$aux exec --no-startup-id /home/$USER/.i3/Applications/Applications
-bindsym Control+1 exec --no-startup-id leafpad
-bindsym $mod+c exec --no-startup-id gsimplecal
-bindsym control+mod1+t exec --no-startup-id smart-terminal
-bindsym $mod+mod1+v exec --no-startup-id vlc
-bindsym $mod+mod1+f exec firefox -run maximized
-bindsym $mod+mod1+t exec --no-startup-id /opt/Telegram/Telegram
-bindsym Control+mod1+f exec --no-startup-id rox
-bindsym control+ccedilla exec --no-startup-id leafpad
-bindsym $mod+t exec --no-startup-id terminal
-bindsym control+KP_Divide exec --no-startup-id terminal
-bindsym Print exec --no-startup-id mate-screenshot
-bindsym Shift+Print exec --no-startup-id mate-screenshot -w
-bindsym Shift+Escape exec --no-startup-id lxtask
-bindsym control+Shift+F5 exec --no-startup-id notify-send -t 2000 "Reboot imminent" "You are about to reboot" && sleep 3 && systemctl reboot
-bindsym control+Shift+F4 exec --no-startup-id notify-send -t 2000 "Logout imminent" "You are about to logout" && sleep 3 && swaymsg exit
-bindsym control+Shift+F1 exec --no-startup-id notify-send -t 2000 "Suspend imminent" "You are about to suspend" && sleep 3 && slock systemctl suspend -i
-bindsym $mod+f exec --no-startup-id rox  
-bindsym $mod+m exec --no-startup-id /home/$USER/.i3/i3-actions/i3-actions
-bindsym $mod+x exec --no-startup-id rofi -show run 
-bindsym $mod+n exec --no-startup-id /home/$USER/.i3/networkmanager_dmenu
-bindsym Mod1+Tab exec --no-startup-id rofi -show window 
-bindsym $mod+z exec --no-startup-id rofi -show drun -location 1 -width 560 -columns 2 -show-icons
-
- bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
- bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
- bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
- bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
- bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
- bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+for_window [class="[.]*"] focus
+for_window [window_role="pop-up"] floating enable
 
 ####################################################################################################
-
+# Startup
 
 exec --no-startup-id xset -dpms s off
 exec --no-startup-id start-pulseaudio-x11
 exec --no-startup-id udiskie
 
+####################################################################################################
