@@ -1,0 +1,51 @@
+#!/bin/bash
+
+
+OPTIONS="\
+ Move to Workspace\n\
+ Full Screen\n\
+ Floating mode\n\
+ Tabbed mode\n\
+ Split mode\n\
+ Split Horizontally\n\
+ Split Vertically\n\
+ Close"
+
+LAUNCHER="rofi -hide-scrollbar -m -3 -width 13 -dmenu -i -p i3-Actions: "
+
+option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
+if [ ${#option} -gt 0 ]
+then
+    case $option in
+      Exit)
+        eval $1
+        ;;
+             )
+        sleep 0.1; /home/$USER/.config/sway/sway-move-apps
+        ;;
+             )
+        sleep 0.1; swaymsg fullscreen toggle
+        ;;
+            )
+        sleep 0.1; swaymsg floating toggle
+        ;;
+            )
+        sleep 0.1; swaymsg layout tabbed
+        ;;
+            )
+        sleep 0.1; swaymsg layout toggle split
+        ;;
+             )
+        sleep 0.1; swaymsg split h
+        ;;
+             )
+        sleep 0.1; swaymsg split v
+        ;;
+             )
+        sleep 0.1; swaymsg kill
+        ;;
+      *)
+        ;;
+    esac
+fi
+swaymsg

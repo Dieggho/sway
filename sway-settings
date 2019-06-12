@@ -1,0 +1,39 @@
+#!/bin/bash
+
+
+OPTIONS="\
+ Calendar\n\
+ Network Menu\n\
+ Connection Editor\n\
+ Volume\n\
+  About i3-wm"
+
+LAUNCHER="rofi -hide-scrollbar -m -3 -width 13 -dmenu -i -p i3-Settings: "
+
+option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
+if [ ${#option} -gt 0 ]
+then
+    case $option in
+      Exit)
+        eval $1
+        ;;
+              )
+        gsimplecal
+        ;;
+             )
+        /home/$USER/.i3/networkmanager_dmenu
+        ;;
+             )
+        st-arc -e nmtui
+        ;;
+             )
+        sleep 0.1; /home/$USER/.i3/Volume-manager
+        ;;
+             )
+        sleep 0.1; notify-send "i3-wm" "$(i3 --version)"
+        ;;
+      *)
+        ;;
+    esac
+fi
+

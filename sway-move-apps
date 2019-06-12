@@ -1,0 +1,58 @@
+#!/bin/bash
+
+
+OPTIONS="\
+  Main\n\
+ Web Broswers 1\n\
+ Web Browsers 2\n\
+  Documents and Files\n\
+ Shell Apps\n\
+  Multi Media\n\
+ Tools\n\
+ Games\n\
+ Network\n\
+ Desktop"
+
+LAUNCHER="rofi -hide-scrollbar -m -3 -width 13 -dmenu -i -p Move-Application-To~~> "
+
+option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
+if [ ${#option} -gt 0 ]
+then
+    case $option in
+      Exit)
+        eval $1
+        ;;
+             )
+        swaymsg move container to workspace  1:
+        ;;
+             )
+        swaymsg move container to workspace  2:
+        ;;
+             )
+        swaymsg move container to workspace  3:
+        ;;
+             )
+        swaymsg move container to workspace  4:
+        ;;
+            )
+        swaymsg move container to workspace  5:
+        ;;
+             )
+        swaymsg move container to workspace  6:  
+        ;;
+             )
+        swaymsg move container to workspace  7:
+        ;;
+             )
+        swaymsg move container to workspace  8:
+        ;;
+             )
+        swaymsg move container to workspace  9:
+        ;;
+             )
+        swaymsg move container to workspace  10:
+        ;;
+      *)
+        ;;
+    esac
+fi
