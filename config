@@ -446,9 +446,8 @@ bindsym Print exec --no-startup-id mate-screenshot
 bindsym Shift+Print exec --no-startup-id mate-screenshot -w
 bindsym Shift+Escape exec --no-startup-id lxtask
 bindsym control+Shift+F5 exec --no-startup-id notify-send -t 2000 "Reboot imminent" "You are about to reboot" && sleep 3 && systemctl reboot
-bindsym control+Shift+F3 exec --no-startup-id i3lock -i '/usr/share/backgrounds/Arc-darker-archlinux-i3wm_1366x768.png'
 bindsym control+Shift+F4 exec --no-startup-id notify-send -t 2000 "Logout imminent" "You are about to logout" && sleep 3 && swaymsg exit
-bindsym control+Shift+F1 exec --no-startup-id notify-send -t 2000 "Suspend imminent" "You are about to suspend" && sleep 3 && i3lock -i /usr/share/backgrounds/Arc-darker-archlinux-i3wm_1366x768.png && sleep 0.5 && systemctl suspend
+bindsym control+Shift+F1 exec --no-startup-id notify-send -t 2000 "Suspend imminent" "You are about to suspend" && sleep 3 && slock systemctl suspend -i
 bindsym $mod+f exec --no-startup-id rox  
 bindsym $mod+m exec --no-startup-id /home/$USER/.i3/i3-actions/i3-actions
 bindsym $mod+x exec --no-startup-id rofi -show run 
